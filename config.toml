@@ -1,0 +1,48 @@
+# How often each content type is picked, relative to the others (0 = never).
+[weights]
+article = 45
+medium = 10
+quote = 25
+book = 20
+ad = 0
+external = 0
+
+# UTM parameters added to links on these domains, so codersite.dev analytics
+# can tell which platform a visitor came from. Amazon short links are left untouched.
+[utm]
+domains = ["codersite.dev"]
+medium = "social"
+campaign = "post-publisher"
+
+# max_len:      character limit of a post
+# link_in_text: true = URL is part of the text; false = sent separately (link card)
+# url_len:      characters the platform counts for any URL (omit = real length)
+# max_tags:     how many hashtags to keep
+# text_only:    only posts without a link are eligible
+[platforms.bluesky]
+max_len = 300
+link_in_text = false
+max_tags = 3
+
+[platforms.mastodon]
+max_len = 500
+link_in_text = true
+url_len = 23
+max_tags = 4
+
+[platforms.linkedin]
+max_len = 3000
+link_in_text = false
+max_tags = 3
+
+[platforms.facebook]
+max_len = 5000
+link_in_text = false
+max_tags = 2
+
+[platforms.x]
+max_len = 280
+link_in_text = true
+url_len = 23
+max_tags = 2
+text_only = true

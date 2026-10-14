@@ -1,0 +1,4 @@
+atproto==0.0.72
+requests==2.34.2
+truststore==0.10.5
+pytest==9.1.1

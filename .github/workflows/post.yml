@@ -1,0 +1,82 @@
+name: post
+
+on:
+  schedule:
+    # times are UTC; minutes are off the hour because GitHub delays jobs at :00
+    - cron: "17 */4 * * *"   # bluesky, every 4 hours
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Platform to post to
+        type: choice
+        options: [bluesky]
+      dry_run:
+        description: Preview only (posts nothing, saves nothing)
+        type: boolean
+        default: true
+
+permissions:
+  contents: write  # to commit state/<platform>.json
+
+# one run at a time, so two runs never push the state files simultaneously
+concurrency:
+  group: post-publisher
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select platform
+        id: select
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "platform=${{ inputs.platform }}" >> "$GITHUB_OUTPUT"
+            echo "dry_run=${{ inputs.dry_run }}" >> "$GITHUB_OUTPUT"
+          else
+            case "${{ github.event.schedule }}" in
+              "17 */4 * * *") echo "platform=bluesky" >> "$GITHUB_OUTPUT" ;;
+              *) echo "::error::no platform for schedule '${{ github.event.schedule }}'"; exit 1 ;;
+            esac
+            echo "dry_run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - run: python -m pytest -q
+
+      - name: Publish
+        env:
+          PLATFORM: ${{ steps.select.outputs.platform }}
+          DRY_RUN: ${{ steps.select.outputs.dry_run }}
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+        run: |
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m publisher --platform "$PLATFORM" --dry-run -n 5
+            exit 0
+          fi
+          if [ "$PLATFORM" = "bluesky" ] && [ -z "$BLUESKY_HANDLE" ]; then
+            echo "::warning::BLUESKY_HANDLE secret not set, skipping"
+            exit 0
+          fi
+          python -m publisher --platform "$PLATFORM"
+
+      - name: Save rotation state
+        if: steps.select.outputs.dry_run == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state/
+          git diff --cached --quiet && exit 0
+          git commit -m "state: ${{ steps.select.outputs.platform }} posted"
+          git pull --rebase
+          git push

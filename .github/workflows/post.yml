@@ -4,12 +4,13 @@ on:
   schedule:
     # times are UTC; minutes are off the hour because GitHub delays jobs at :00
     - cron: "17 */4 * * *"   # bluesky, every 4 hours
+    - cron: "43 7,16 * * *"  # mastodon, twice a day (Berlin 9:43/18:43 in summer, 8:43/17:43 in winter)
   workflow_dispatch:
     inputs:
       platform:
         description: Platform to post to
         type: choice
-        options: [bluesky]
+        options: [bluesky, mastodon]
       dry_run:
         description: Preview only (posts nothing, saves nothing)
         type: boolean
@@ -39,6 +40,7 @@ jobs:
           else
             case "${{ github.event.schedule }}" in
               "17 */4 * * *") echo "platform=bluesky" >> "$GITHUB_OUTPUT" ;;
+              "43 7,16 * * *") echo "platform=mastodon" >> "$GITHUB_OUTPUT" ;;
               *) echo "::error::no platform for schedule '${{ github.event.schedule }}'"; exit 1 ;;
             esac
             echo "dry_run=false" >> "$GITHUB_OUTPUT"
@@ -59,13 +61,19 @@ jobs:
           DRY_RUN: ${{ steps.select.outputs.dry_run }}
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
           BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+          MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
         run: |
           if [ "$DRY_RUN" = "true" ]; then
             python -m publisher --platform "$PLATFORM" --dry-run -n 5
             exit 0
           fi
-          if [ "$PLATFORM" = "bluesky" ] && [ -z "$BLUESKY_HANDLE" ]; then
-            echo "::warning::BLUESKY_HANDLE secret not set, skipping"
+          case "$PLATFORM" in
+            bluesky)  required=BLUESKY_HANDLE ;;
+            mastodon) required=MASTODON_ACCESS_TOKEN ;;
+          esac
+          if [ -z "${!required}" ]; then
+            echo "::warning::$required secret not set, skipping $PLATFORM"
             exit 0
           fi
           python -m publisher --platform "$PLATFORM"

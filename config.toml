@@ -31,9 +31,10 @@ url_len = 23
 max_tags = 4
 
 [platforms.linkedin]
-max_len = 3000
+max_len = 2800  # API limit is 3000; leaves room for escaping
 link_in_text = false
 max_tags = 3
+api_version = "202609"  # LinkedIn-Version header; each version is supported ~1 year
 
 [platforms.facebook]
 max_len = 5000

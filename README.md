@@ -8,7 +8,8 @@ GitHub Actions. No server needed.
 |---|---|
 | Bluesky | ✅ every 4 hours |
 | Mastodon | ✅ twice a day |
-| LinkedIn, Facebook Page | planned |
+| LinkedIn | ✅ weekdays, once a day |
+| Facebook Page | planned |
 | X | planned, text-only posts |
 
 ## How it works
@@ -57,6 +58,7 @@ Add these in **Settings → Secrets and variables → Actions**:
 | `BLUESKY_APP_PASSWORD` | bsky.app → Settings → Privacy and security → App passwords |
 | `MASTODON_INSTANCE` | your server, e.g. `https://mastodon.social` |
 | `MASTODON_ACCESS_TOKEN` | Preferences → Development → New application, scope `write:statuses` only |
+| `LINKEDIN_ACCESS_TOKEN`, `LINKEDIN_AUTHOR`, `LINKEDIN_TOKEN_EXPIRES` | printed by `python tools/linkedin_auth.py <client id> <client secret>` (renew every 60 days) |
 
 Run **Actions → post → Run workflow** with *dry run* checked to preview, then unchecked
 to post once. After that the schedule takes over.

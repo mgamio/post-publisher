@@ -4,13 +4,14 @@ on:
   schedule:
     # times are UTC; minutes are off the hour because GitHub delays jobs at :00
     - cron: "17 */4 * * *"   # bluesky, every 4 hours
+    - cron: "7 7 * * 1-5"    # linkedin, weekdays (Berlin 9:07 in summer, 8:07 in winter)
     - cron: "43 7,16 * * *"  # mastodon, twice a day (Berlin 9:43/18:43 in summer, 8:43/17:43 in winter)
   workflow_dispatch:
     inputs:
       platform:
         description: Platform to post to
         type: choice
-        options: [bluesky, mastodon]
+        options: [bluesky, mastodon, linkedin]
       dry_run:
         description: Preview only (posts nothing, saves nothing)
         type: boolean
@@ -41,6 +42,7 @@ jobs:
             case "${{ github.event.schedule }}" in
               "17 */4 * * *") echo "platform=bluesky" >> "$GITHUB_OUTPUT" ;;
               "43 7,16 * * *") echo "platform=mastodon" >> "$GITHUB_OUTPUT" ;;
+              "7 7 * * 1-5") echo "platform=linkedin" >> "$GITHUB_OUTPUT" ;;
               *) echo "::error::no platform for schedule '${{ github.event.schedule }}'"; exit 1 ;;
             esac
             echo "dry_run=false" >> "$GITHUB_OUTPUT"
@@ -63,6 +65,9 @@ jobs:
           BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
           MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
           MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_AUTHOR: ${{ secrets.LINKEDIN_AUTHOR }}
+          LINKEDIN_TOKEN_EXPIRES: ${{ secrets.LINKEDIN_TOKEN_EXPIRES }}
         run: |
           if [ "$DRY_RUN" = "true" ]; then
             python -m publisher --platform "$PLATFORM" --dry-run -n 5
@@ -71,6 +76,7 @@ jobs:
           case "$PLATFORM" in
             bluesky)  required=BLUESKY_HANDLE ;;
             mastodon) required=MASTODON_ACCESS_TOKEN ;;
+            linkedin) required=LINKEDIN_ACCESS_TOKEN ;;
           esac
           if [ -z "${!required}" ]; then
             echo "::warning::$required secret not set, skipping $PLATFORM"

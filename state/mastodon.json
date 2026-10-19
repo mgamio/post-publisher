@@ -265,7 +265,6 @@
       "quote-025"
     ],
     "medium": [
-      "med-020",
       "med-019",
       "med-004",
       "med-007",
@@ -344,6 +343,12 @@
       "type": "medium",
       "at": "2026-10-19T14:59:27+00:00",
       "url": "https://mastodon.social/@codersite_dev/117468166019392333"
+    },
+    {
+      "id": "med-020",
+      "type": "medium",
+      "at": "2026-10-19T21:15:33+00:00",
+      "url": "https://mastodon.social/@codersite_dev/117469644956853035"
     }
   ]
 }

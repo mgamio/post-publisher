@@ -35,7 +35,8 @@ Edit `content/posts.csv` (Excel or any text editor, UTF-8):
 - **image**: optional path in this repo, used as preview image when the page has none
   (e.g. Amazon links).
 
-On X only posts without a link are used.
+On X only posts without a link are used; on LinkedIn only `article` posts
+(`types` in `config.toml`).
 
 ## Running locally
 

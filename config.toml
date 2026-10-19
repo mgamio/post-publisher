@@ -19,6 +19,7 @@ campaign = "post-publisher"
 # url_len:      characters the platform counts for any URL (omit = real length)
 # max_tags:     how many hashtags to keep
 # text_only:    only posts without a link are eligible
+# types:        only these content types are eligible (omit = all types)
 [platforms.bluesky]
 max_len = 300
 link_in_text = false
@@ -35,6 +36,7 @@ max_len = 2800  # API limit is 3000; leaves room for escaping
 link_in_text = false
 max_tags = 3
 api_version = "202609"  # LinkedIn-Version header; each version is supported ~1 year
+types = ["article"]  # only these content types are posted here
 
 [platforms.facebook]
 max_len = 5000

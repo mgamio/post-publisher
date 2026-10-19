@@ -33,7 +33,10 @@ def load_posts(path):
 
 
 def eligible_posts(posts, platform, platform_cfg):
+    types = platform_cfg.get("types")
     return [
         p for p in posts
-        if p.enabled_on(platform) and not (platform_cfg.get("text_only") and p.link)
+        if p.enabled_on(platform)
+        and not (platform_cfg.get("text_only") and p.link)
+        and (types is None or p.type in types)
     ]

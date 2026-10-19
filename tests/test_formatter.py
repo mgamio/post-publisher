@@ -46,3 +46,8 @@ def test_text_only_platform_excludes_posts_with_links():
              Post(id="3", type="quote", text="q", platforms="bluesky,mastodon")]
     assert [p.id for p in eligible_posts(posts, "x", {"text_only": True})] == ["1"]
     assert [p.id for p in eligible_posts(posts, "mastodon", {})] == ["1", "2", "3"]
+
+
+def test_platform_types_filter():
+    posts = [Post(id="1", type="article", text="a"), Post(id="2", type="book", text="b")]
+    assert [p.id for p in eligible_posts(posts, "linkedin", {"types": ["article"]})] == ["1"]

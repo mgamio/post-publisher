@@ -50,10 +50,17 @@ def main():
         perms = get("me/permissions", access_token=user_token)["data"]
         granted = sorted(p["permission"] for p in perms if p["status"] == "granted")
         missing = {"pages_show_list", "pages_read_engagement", "pages_manage_posts"} - set(granted)
-        sys.exit("Facebook returned no pages for this token.\n"
-                 f"  granted permissions: {', '.join(granted) or 'none'}\n"
-                 + (f"  missing: {', '.join(sorted(missing))}\n" if missing else "")
-                 + "Generate the token again and, when Facebook asks which Pages to allow, select your Page.")
+        print("Facebook returned no pages for this token.\n"
+              f"  granted permissions: {', '.join(granted) or 'none'}\n"
+              + (f"  missing: {', '.join(sorted(missing))}\n" if missing else "")
+              + "  (a Page owned by a Business portfolio also needs business_management)")
+        # pages in a business portfolio are sometimes only reachable by their id
+        page_id = input("Page ID (Page > About > Page transparency), or Enter to quit: ").strip()
+        if not page_id:
+            sys.exit(1)
+        pages = [get(page_id, fields="id,name,access_token", access_token=user_token)]
+        if "access_token" not in pages[0]:
+            sys.exit("Facebook gave no token for this Page; the user token has no access to it.")
 
     for i, page in enumerate(pages, 1):
         tasks = page.get("tasks")

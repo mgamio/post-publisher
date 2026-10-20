@@ -9,7 +9,7 @@ GitHub Actions. No server needed.
 | Bluesky | ✅ 6× a day |
 | Mastodon | ✅ 2× a day |
 | LinkedIn | ✅ weekdays, articles only |
-| Facebook Page | ✅ 2× a day |
+| Facebook Page | ✅ every 2 hours |
 | X | planned, text-only posts |
 
 ## How it works

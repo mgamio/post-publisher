@@ -32,6 +32,10 @@ def get(path, **params):
 def main():
     app_id = input("App ID: ").strip()
     app_secret = getpass.getpass("App secret (hidden): ").strip()
+    # an app secret is 32 hex characters; anything else is a copy/paste problem
+    if len(app_secret) != 32 or any(c not in "0123456789abcdef" for c in app_secret.lower()):
+        sys.exit(f"The app secret should be 32 characters (0-9, a-f), got {len(app_secret)}. "
+                 "Copy it again from App settings > Basic > App secret > Show.")
     short_token = getpass.getpass("User token from the Graph API Explorer (hidden): ").strip()
 
     # a page token obtained with a long-lived user token never expires

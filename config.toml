@@ -49,6 +49,8 @@ api_version = "202609"  # LinkedIn-Version header; each version is supported ~1 
 types = ["article"]  # only these content types are posted here
 
 [platforms.facebook]
+post_at = ["12:10", "19:10"]
+api_version = "v26.0"
 max_len = 5000
 link_in_text = false
 max_tags = 2

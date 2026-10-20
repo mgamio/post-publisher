@@ -9,7 +9,7 @@ GitHub Actions. No server needed.
 | Bluesky | ✅ 6× a day |
 | Mastodon | ✅ 2× a day |
 | LinkedIn | ✅ weekdays, articles only |
-| Facebook Page | planned |
+| Facebook Page | ✅ 2× a day |
 | X | planned, text-only posts |
 
 ## How it works
@@ -69,6 +69,7 @@ Add these in **Settings → Secrets and variables → Actions**:
 | `MASTODON_INSTANCE` | your server, e.g. `https://mastodon.social` |
 | `MASTODON_ACCESS_TOKEN` | Preferences → Development → New application, scope `write:statuses` only |
 | `LINKEDIN_ACCESS_TOKEN`, `LINKEDIN_AUTHOR`, `LINKEDIN_TOKEN_EXPIRES` | printed by `python tools/linkedin_auth.py <client id> <client secret>` (renew every 60 days) |
+| `FACEBOOK_PAGE_ID`, `FACEBOOK_PAGE_TOKEN` | printed by `python tools/facebook_auth.py` (the page token does not expire) |
 
 **Actions → post → Run workflow**: `due` with *dry run* checked previews what the schedule
 would post now; choosing a platform with *dry run* unchecked posts to it immediately.

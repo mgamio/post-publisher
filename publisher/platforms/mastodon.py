@@ -7,6 +7,8 @@ import uuid
 
 import requests
 
+REQUIRED_ENV = ["MASTODON_INSTANCE", "MASTODON_ACCESS_TOKEN"]
+
 
 def publish(post, rendered):
     instance = os.environ["MASTODON_INSTANCE"].rstrip("/")

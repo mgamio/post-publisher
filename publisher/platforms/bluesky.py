@@ -8,6 +8,7 @@ from atproto import Client, client_utils, models
 
 from .linkcard import fetch_image, fetch_og
 
+REQUIRED_ENV = ["BLUESKY_HANDLE", "BLUESKY_APP_PASSWORD"]
 ROOT = Path(__file__).resolve().parents[2]
 MAX_THUMB_BYTES = 950_000  # Bluesky rejects blobs over ~1 MB
 

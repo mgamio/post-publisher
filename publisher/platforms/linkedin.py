@@ -14,6 +14,7 @@ import requests
 
 from .linkcard import fetch_image, fetch_og
 
+REQUIRED_ENV = ["LINKEDIN_ACCESS_TOKEN", "LINKEDIN_AUTHOR"]
 ROOT = Path(__file__).resolve().parents[2]
 API = "https://api.linkedin.com/rest"
 MAX_IMAGE_BYTES = 5_000_000

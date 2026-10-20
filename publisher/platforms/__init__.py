@@ -4,7 +4,6 @@ import importlib
 IMPLEMENTED = ["bluesky", "mastodon", "linkedin"]
 
 
-def get_publisher(platform):
-    if platform not in IMPLEMENTED:
-        raise SystemExit(f"no publisher for '{platform}' yet (implemented: {', '.join(IMPLEMENTED)})")
-    return importlib.import_module(f"{__name__}.{platform}").publish
+def get_module(platform):
+    """The publisher module: publish(post, rendered) -> url, and REQUIRED_ENV."""
+    return importlib.import_module(f"{__name__}.{platform}")

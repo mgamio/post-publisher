@@ -14,6 +14,12 @@ domains = ["codersite.dev"]
 medium = "social"
 campaign = "post-publisher"
 
+[schedule]
+timezone = "Europe/Berlin"  # post_at times below are in this timezone
+
+# post_at:      local times to post; the workflow checks every 30 minutes and posts
+#               once per time that has passed since the platform's last post
+# days:         only on these days (omit = every day)
 # max_len:      character limit of a post
 # link_in_text: true = URL is part of the text; false = sent separately (link card)
 # url_len:      characters the platform counts for any URL (omit = real length)
@@ -21,17 +27,21 @@ campaign = "post-publisher"
 # text_only:    only posts without a link are eligible
 # types:        only these content types are eligible (omit = all types)
 [platforms.bluesky]
+post_at = ["02:10", "06:10", "10:10", "14:10", "18:10", "22:10"]
 max_len = 300
 link_in_text = false
 max_tags = 3
 
 [platforms.mastodon]
+post_at = ["09:40", "18:40"]
 max_len = 500
 link_in_text = true
 url_len = 23
 max_tags = 4
 
 [platforms.linkedin]
+post_at = ["09:10"]
+days = ["mon", "tue", "wed", "thu", "fri"]
 max_len = 2800  # API limit is 3000; leaves room for escaping
 link_in_text = false
 max_tags = 3

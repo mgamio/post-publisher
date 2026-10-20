@@ -2,16 +2,16 @@ name: post
 
 on:
   schedule:
-    # times are UTC; minutes are off the hour because GitHub delays jobs at :00
-    - cron: "17 */4 * * *"   # bluesky, every 4 hours
-    - cron: "7 7 * * 1-5"    # linkedin, weekdays (Berlin 9:07 in summer, 8:07 in winter)
-    - cron: "43 7,16 * * *"  # mastodon, twice a day (Berlin 9:43/18:43 in summer, 8:43/17:43 in winter)
+    # GitHub often starts scheduled runs late or skips them, so each run only checks
+    # what is due; the posting times are post_at in config.toml (Berlin time).
+    - cron: "13,43 * * * *"
   workflow_dispatch:
     inputs:
       platform:
-        description: Platform to post to
+        description: "'due' = post what the schedule says is due; a platform = post to it now"
         type: choice
-        options: [bluesky, mastodon, linkedin]
+        options: [due, bluesky, mastodon, linkedin]
+        default: due
       dry_run:
         description: Preview only (posts nothing, saves nothing)
         type: boolean
@@ -20,7 +20,7 @@ on:
 permissions:
   contents: write  # to commit state/<platform>.json
 
-# one run at a time, so two runs never push the state files simultaneously
+# one run at a time, so two runs never post or push the state files simultaneously
 concurrency:
   group: post-publisher
   cancel-in-progress: false
@@ -28,25 +28,9 @@ concurrency:
 jobs:
   post:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-
-      - name: Select platform
-        id: select
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "platform=${{ inputs.platform }}" >> "$GITHUB_OUTPUT"
-            echo "dry_run=${{ inputs.dry_run }}" >> "$GITHUB_OUTPUT"
-          else
-            case "${{ github.event.schedule }}" in
-              "17 */4 * * *") echo "platform=bluesky" >> "$GITHUB_OUTPUT" ;;
-              "43 7,16 * * *") echo "platform=mastodon" >> "$GITHUB_OUTPUT" ;;
-              "7 7 * * 1-5") echo "platform=linkedin" >> "$GITHUB_OUTPUT" ;;
-              *) echo "::error::no platform for schedule '${{ github.event.schedule }}'"; exit 1 ;;
-            esac
-            echo "dry_run=false" >> "$GITHUB_OUTPUT"
-          fi
 
       - uses: actions/setup-python@v5
         with:
@@ -59,8 +43,8 @@ jobs:
 
       - name: Publish
         env:
-          PLATFORM: ${{ steps.select.outputs.platform }}
-          DRY_RUN: ${{ steps.select.outputs.dry_run }}
+          PLATFORM: ${{ inputs.platform || 'due' }}
+          DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
           BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
           MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
@@ -69,28 +53,22 @@ jobs:
           LINKEDIN_AUTHOR: ${{ secrets.LINKEDIN_AUTHOR }}
           LINKEDIN_TOKEN_EXPIRES: ${{ secrets.LINKEDIN_TOKEN_EXPIRES }}
         run: |
+          if [ "$PLATFORM" = "due" ]; then target="--due"; else target="--platform $PLATFORM"; fi
           if [ "$DRY_RUN" = "true" ]; then
-            python -m publisher --platform "$PLATFORM" --dry-run -n 5
-            exit 0
+            python -m publisher $target --dry-run -n 3
+          else
+            python -m publisher $target
           fi
-          case "$PLATFORM" in
-            bluesky)  required=BLUESKY_HANDLE ;;
-            mastodon) required=MASTODON_ACCESS_TOKEN ;;
-            linkedin) required=LINKEDIN_ACCESS_TOKEN ;;
-          esac
-          if [ -z "${!required}" ]; then
-            echo "::warning::$required secret not set, skipping $PLATFORM"
-            exit 0
-          fi
-          python -m publisher --platform "$PLATFORM"
 
+      # also after a failure, so the platforms that did post keep their progress
       - name: Save rotation state
-        if: steps.select.outputs.dry_run == 'false'
+        if: always() && !inputs.dry_run
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add state/
           git diff --cached --quiet && exit 0
-          git commit -m "state: ${{ steps.select.outputs.platform }} posted"
+          platforms=$(git diff --cached --name-only | xargs -n1 basename | sed 's/\.json$//' | paste -sd, -)
+          git commit -m "state: $platforms posted"
           git pull --rebase
           git push

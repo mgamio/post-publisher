@@ -46,12 +46,19 @@ def main():
         user_token = get("oauth/access_token", grant_type="fb_exchange_token", client_id=app_id,
                          client_secret=app_secret, fb_exchange_token=user_token)["access_token"]
     pages = get("me/accounts", fields="id,name,access_token,tasks", access_token=user_token)["data"]
-    pages = [p for p in pages if "CREATE_CONTENT" in p.get("tasks", [])]
     if not pages:
-        sys.exit("No page you can post on; check the token has pages_show_list and pages_manage_posts")
+        perms = get("me/permissions", access_token=user_token)["data"]
+        granted = sorted(p["permission"] for p in perms if p["status"] == "granted")
+        missing = {"pages_show_list", "pages_read_engagement", "pages_manage_posts"} - set(granted)
+        sys.exit("Facebook returned no pages for this token.\n"
+                 f"  granted permissions: {', '.join(granted) or 'none'}\n"
+                 + (f"  missing: {', '.join(sorted(missing))}\n" if missing else "")
+                 + "Generate the token again and, when Facebook asks which Pages to allow, select your Page.")
 
     for i, page in enumerate(pages, 1):
-        print(f"{i}. {page['name']} ({page['id']})")
+        tasks = page.get("tasks")
+        note = "" if not tasks or "CREATE_CONTENT" in tasks else "  (no permission to post: " + ", ".join(tasks) + ")"
+        print(f"{i}. {page['name']} ({page['id']}){note}")
     page = pages[int(input("Page number: ") if len(pages) > 1 else 1) - 1]
 
     info = get("debug_token", input_token=page["access_token"], access_token=page["access_token"])["data"]

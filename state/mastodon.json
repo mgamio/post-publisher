@@ -1,7 +1,6 @@
 {
   "bags": {
     "book": [
-      "book-044",
       "book-058",
       "book-079",
       "book-034",
@@ -374,6 +373,12 @@
       "type": "quote",
       "at": "2026-10-22T13:12:40+00:00",
       "url": "https://mastodon.social/@codersite_dev/117484733232401013"
+    },
+    {
+      "id": "book-044",
+      "type": "book",
+      "at": "2026-10-22T18:02:24+00:00",
+      "url": "https://mastodon.social/@codersite_dev/117485872569719326"
     }
   ]
 }

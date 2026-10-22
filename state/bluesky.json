@@ -23,7 +23,6 @@
       "med-018"
     ],
     "quote": [
-      "quote-026",
       "quote-044",
       "quote-001",
       "quote-012",
@@ -449,6 +448,12 @@
       "type": "article",
       "at": "2026-10-21T20:39:46+00:00",
       "url": "https://bsky.app/profile/codersite.bsky.social/post/3myfyzsjt4a2f"
+    },
+    {
+      "id": "quote-026",
+      "type": "quote",
+      "at": "2026-10-22T01:53:47+00:00",
+      "url": "https://bsky.app/profile/codersite.bsky.social/post/3mygklbbygl2b"
     }
   ]
 }

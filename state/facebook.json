@@ -1,7 +1,6 @@
 {
   "bags": {
     "quote": [
-      "quote-109",
       "quote-105",
       "quote-033",
       "quote-106",
@@ -24,7 +23,6 @@
       "quote-052",
       "quote-028",
       "quote-075",
-      "quote-046",
       "quote-063",
       "quote-041",
       "quote-038",
@@ -77,7 +75,6 @@
       "quote-089",
       "quote-092",
       "quote-036",
-      "quote-085",
       "quote-045",
       "quote-044",
       "quote-082",
@@ -359,6 +356,12 @@
       "type": "medium",
       "at": "2026-10-22T21:35:18+00:00",
       "url": "https://www.facebook.com/340966766397769_1589728359625717"
+    },
+    {
+      "id": "quote-109",
+      "type": "quote",
+      "at": "2026-10-23T00:10:51+00:00",
+      "url": "https://www.facebook.com/340966766397769_1589811992950687"
     }
   ]
 }

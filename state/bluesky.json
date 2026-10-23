@@ -23,7 +23,6 @@
       "med-018"
     ],
     "quote": [
-      "quote-044",
       "quote-001",
       "quote-012",
       "quote-004",
@@ -39,7 +38,6 @@
       "quote-028",
       "quote-048",
       "quote-056",
-      "quote-085",
       "quote-025",
       "quote-113",
       "quote-051",
@@ -126,7 +124,6 @@
       "quote-031",
       "quote-021",
       "quote-073",
-      "quote-046",
       "quote-040",
       "quote-008",
       "quote-058"
@@ -489,6 +486,12 @@
       "type": "article",
       "at": "2026-10-23T10:03:04+00:00",
       "url": "https://bsky.app/profile/codersite.bsky.social/post/3myjwf64hi32s"
+    },
+    {
+      "id": "quote-044",
+      "type": "quote",
+      "at": "2026-10-23T15:03:49+00:00",
+      "url": "https://bsky.app/profile/codersite.bsky.social/post/3mykh6vrd742p"
     }
   ]
 }

@@ -56,6 +56,8 @@ link_in_text = false
 max_tags = 2
 
 [platforms.x]
+post_at = ["18:20", "20:20", "00:20"]  # each API post is billed, see README
+days = ["tue", "wed", "thu"]
 max_len = 280
 link_in_text = true
 url_len = 23

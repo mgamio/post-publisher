@@ -75,8 +75,8 @@ def test_due_runs_only_due_platforms_with_credentials(tmp_path, monkeypatch, cap
     monkeypatch.setenv("FAKE_TOKEN", "t")
     assert cli.main(["--due", "--state-dir", str(tmp_path)], now=now) == 0
     out = capsys.readouterr().out
-    assert "due: bluesky, linkedin, facebook" in out  # no state yet for linkedin, facebook
-    assert len(published) == 3
+    assert "due: bluesky, linkedin, facebook, x" in out  # no state yet for linkedin, facebook, x
+    assert len(published) == 4
 
     # second run in the same half hour: nothing is due anymore
     assert cli.main(["--due", "--state-dir", str(tmp_path)], now=now) == 0

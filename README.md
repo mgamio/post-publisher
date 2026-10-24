@@ -10,7 +10,7 @@ GitHub Actions. No server needed.
 | Mastodon | ✅ 2× a day |
 | LinkedIn | ✅ weekdays, articles only |
 | Facebook Page | ✅ 6× a day |
-| X | planned, text-only posts |
+| X | ✅ 3× a day Tue–Thu, text-only posts |
 
 ## How it works
 
@@ -47,6 +47,11 @@ Edit `content/posts.csv` (Excel or any text editor, UTF-8):
 On X only posts without a link are used; on LinkedIn only `article` posts
 (`types` in `config.toml`).
 
+The X API bills every post, and a post with a link costs much more than a plain one.
+So X gets only posts with an empty `link`, and the publisher refuses any text in
+which X would detect a link (a URL or a bare domain such as `codersite.dev` or
+`CLAUDE.md`). Point readers to the link in the profile instead.
+
 ## Running locally
 
 ```sh
@@ -70,6 +75,7 @@ Add these in **Settings → Secrets and variables → Actions**:
 | `MASTODON_ACCESS_TOKEN` | Preferences → Development → New application, scope `write:statuses` only |
 | `LINKEDIN_ACCESS_TOKEN`, `LINKEDIN_AUTHOR`, `LINKEDIN_TOKEN_EXPIRES` | printed by `python tools/linkedin_auth.py <client id> <client secret>` (renew every 60 days) |
 | `FACEBOOK_PAGE_ID`, `FACEBOOK_PAGE_TOKEN` | printed by `python tools/facebook_auth.py` (the page token does not expire) |
+| `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_TOKEN_SECRET` | developer.x.com → your app → Keys and tokens; set the app to *Read and write* first, then generate the access token (does not expire) |
 
 **Actions → post → Run workflow**: `due` with *dry run* checked previews what the schedule
 would post now; choosing a platform with *dry run* unchecked posts to it immediately.

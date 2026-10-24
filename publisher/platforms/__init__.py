@@ -1,7 +1,7 @@
 import importlib
 
 # platforms with a working publisher; the others in config.toml are planned
-IMPLEMENTED = ["bluesky", "mastodon", "linkedin", "facebook"]
+IMPLEMENTED = ["bluesky", "mastodon", "linkedin", "facebook", "x"]
 
 
 def get_module(platform):

@@ -10,7 +10,7 @@ on:
       platform:
         description: "'due' = post what the schedule says is due; a platform = post to it now"
         type: choice
-        options: [due, bluesky, mastodon, linkedin, facebook]
+        options: [due, bluesky, mastodon, linkedin, facebook, x]
         default: due
       dry_run:
         description: Preview only (posts nothing, saves nothing)
@@ -54,6 +54,10 @@ jobs:
           LINKEDIN_TOKEN_EXPIRES: ${{ secrets.LINKEDIN_TOKEN_EXPIRES }}
           FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
           FACEBOOK_PAGE_TOKEN: ${{ secrets.FACEBOOK_PAGE_TOKEN }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
         run: |
           if [ "$PLATFORM" = "due" ]; then target="--due"; else target="--platform $PLATFORM"; fi
           if [ "$DRY_RUN" = "true" ]; then

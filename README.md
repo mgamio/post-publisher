@@ -11,6 +11,7 @@ GitHub Actions. No server needed.
 | LinkedIn | ✅ weekdays, articles only |
 | Facebook Page | ✅ 6× a day |
 | X | ✅ 3× a day Tue–Thu, text-only posts |
+| DEV (dev.to) | ✅ 1 full article every Thursday |
 
 ## How it works
 
@@ -52,6 +53,26 @@ So X gets only posts with an empty `link`, and the publisher refuses any text in
 which X would detect a link (a URL or a bare domain such as `codersite.dev` or
 `CLAUDE.md`). Point readers to the link in the profile instead.
 
+## DEV (dev.to)
+
+DEV gets full articles, not short posts. Every Thursday the workflow takes the next slug
+in `content/devto.csv` (best articles first; `tags` are up to 4 DEV tags) and republishes
+that post from the [blog repository](https://github.com/mgamio/blog) (`_posts/`):
+
+- `canonical_url` points to the codersite.dev page, so search engines keep crediting the original;
+- Jekyll includes become plain markdown: the author's book blocks turn into linked cover images
+  that link to their codersite landing page; other authors' books lose their cover and their
+  Amazon links (the title stays as plain text); ads and the coffee button are removed;
+- a footer says where the article was first published and links to the books.
+
+The first `drafts` articles (`[devto]` in `config.toml`) are created as drafts: review and
+publish them on dev.to. Each slug is published once; the progress is in `state/devto.json`.
+To add an article, add its slug (the post file name without date and extension) to the CSV.
+
+```sh
+.venv/Scripts/python -m publisher.devto --blog-dir ../blog --dry-run   # preview the next article
+```
+
 ## Running locally
 
 ```sh
@@ -75,6 +96,7 @@ Add these in **Settings → Secrets and variables → Actions**:
 | `MASTODON_ACCESS_TOKEN` | Preferences → Development → New application, scope `write:statuses` only |
 | `LINKEDIN_ACCESS_TOKEN`, `LINKEDIN_AUTHOR`, `LINKEDIN_TOKEN_EXPIRES` | printed by `python tools/linkedin_auth.py <client id> <client secret>` (renew every 60 days) |
 | `FACEBOOK_PAGE_ID`, `FACEBOOK_PAGE_TOKEN` | printed by `python tools/facebook_auth.py` (the page token does not expire) |
+| `DEVTO_API_KEY` | dev.to → Settings → Extensions → DEV Community API Keys |
 | `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_TOKEN_SECRET` | developer.x.com → your app → Keys and tokens; set the app to *Read and write* first, then generate the access token (does not expire) |
 
 **Actions → post → Run workflow**: `due` with *dry run* checked previews what the schedule

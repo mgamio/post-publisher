@@ -63,3 +63,10 @@ link_in_text = true
 url_len = 23
 max_tags = 2
 text_only = true
+
+# Republishes codersite.dev articles on DEV (dev.to), in the order of content/devto.csv.
+# drafts: the first N are created as drafts to review on dev.to before going live.
+[devto]
+post_at = ["10:10"]
+days = ["thu"]
+drafts = 3

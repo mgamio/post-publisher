@@ -10,7 +10,7 @@ on:
       platform:
         description: "'due' = post what the schedule says is due; a platform = post to it now"
         type: choice
-        options: [due, bluesky, mastodon, linkedin, facebook, x]
+        options: [due, bluesky, mastodon, linkedin, facebook, x, devto]
         default: due
       dry_run:
         description: Preview only (posts nothing, saves nothing)
@@ -42,6 +42,7 @@ jobs:
       - run: python -m pytest -q
 
       - name: Publish
+        if: inputs.platform != 'devto'
         env:
           PLATFORM: ${{ inputs.platform || 'due' }}
           DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
@@ -64,6 +65,30 @@ jobs:
             python -m publisher $target --dry-run -n 3
           else
             python -m publisher $target
+          fi
+
+      # the articles republished on DEV are the markdown files of the blog repository
+      - uses: actions/checkout@v4
+        if: ${{ !cancelled() && ((inputs.platform || 'due') == 'due' || inputs.platform == 'devto') }}
+        with:
+          repository: mgamio/blog
+          path: blog
+          sparse-checkout: |
+            _posts
+            _includes
+
+      - name: Publish to DEV
+        if: ${{ !cancelled() && ((inputs.platform || 'due') == 'due' || inputs.platform == 'devto') }}
+        env:
+          PLATFORM: ${{ inputs.platform || 'due' }}
+          DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        run: |
+          if [ "$PLATFORM" = "due" ]; then when="--due"; else when=""; fi
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m publisher.devto --blog-dir blog $when --dry-run
+          else
+            python -m publisher.devto --blog-dir blog $when
           fi
 
       # also after a failure, so the platforms that did post keep their progress

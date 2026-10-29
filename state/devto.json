@@ -7,6 +7,12 @@
       "type": "article",
       "at": "2026-10-28T21:54:21+00:00",
       "url": "https://dev.to/moisesgamio/from-on2-to-on-replace-nested-loops-with-a-hashmap-in-java-1mho-temp-slug-1128835"
+    },
+    {
+      "id": "how-rest-client-handles-503-error",
+      "type": "article",
+      "at": "2026-10-29T15:33:55+00:00",
+      "url": "https://dev.to/moisesgamio/how-a-rest-client-should-handle-503-service-unavailable-retries-with-backoff-in-spring-5dl7-temp-slug-1431195"
     }
   ]
 }

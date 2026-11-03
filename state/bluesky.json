@@ -78,7 +78,6 @@
       "quote-058"
     ],
     "book": [
-      "book-049",
       "book-062",
       "book-011",
       "book-012",
@@ -712,6 +711,12 @@
       "type": "medium",
       "at": "2026-11-03T15:06:20+00:00",
       "url": "https://bsky.app/profile/codersite.bsky.social/post/3mzg4hjkazw2f"
+    },
+    {
+      "id": "book-049",
+      "type": "book",
+      "at": "2026-11-03T20:59:02+00:00",
+      "url": "https://bsky.app/profile/codersite.bsky.social/post/3mzgq67dvkr22"
     }
   ]
 }

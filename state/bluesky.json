@@ -1,7 +1,6 @@
 {
   "bags": {
     "medium": [
-      "med-002",
       "med-033",
       "med-023",
       "med-035",
@@ -802,6 +801,12 @@
       "type": "book",
       "at": "2026-11-08T02:29:17+00:00",
       "url": "https://bsky.app/profile/codersite.bsky.social/post/3mzreihdq6t22"
+    },
+    {
+      "id": "med-002",
+      "type": "medium",
+      "at": "2026-11-08T09:29:09+00:00",
+      "url": "https://bsky.app/profile/codersite.bsky.social/post/3mzs3xankoo26"
     }
   ]
 }

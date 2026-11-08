@@ -40,7 +40,7 @@ url_len = 23
 max_tags = 4
 
 [platforms.linkedin]
-post_at = ["09:10"]
+post_at = ["17:10"]
 days = ["mon", "tue", "wed", "thu", "fri"]
 max_len = 2800  # API limit is 3000; leaves room for escaping
 link_in_text = false
@@ -57,7 +57,7 @@ max_tags = 2
 
 [platforms.x]
 post_at = ["18:20", "20:20", "00:20"]  # each API post is billed, see README
-days = ["tue", "wed", "thu"]
+days = ["tue", "wed", "thu", "fri"]
 max_len = 280
 link_in_text = true
 url_len = 23
@@ -67,6 +67,6 @@ text_only = true
 # Republishes codersite.dev articles on DEV (dev.to), in the order of content/devto.csv.
 # drafts: the first N are created as drafts to review on dev.to before going live.
 [devto]
-post_at = ["10:10"]
-days = ["thu"]
+post_at = ["18:10"]
+days = ["tue"]
 drafts = 3

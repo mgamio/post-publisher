@@ -10,8 +10,8 @@ GitHub Actions. No server needed.
 | Mastodon | ✅ 2× a day |
 | LinkedIn | ✅ weekdays, articles only |
 | Facebook Page | ✅ 6× a day |
-| X | ✅ 3× a day Tue–Thu, text-only posts |
-| DEV (dev.to) | ✅ 1 full article every Thursday |
+| X | ✅ 3× a day Tue–Fri, text-only posts |
+| DEV (dev.to) | ✅ 1 full article every Tuesday |
 
 ## How it works
 
@@ -55,7 +55,7 @@ which X would detect a link (a URL or a bare domain such as `codersite.dev` or
 
 ## DEV (dev.to)
 
-DEV gets full articles, not short posts. Every Thursday the workflow takes the next slug
+DEV gets full articles, not short posts. Every Tuesday the workflow takes the next slug
 in `content/devto.csv` (best articles first; `tags` are up to 4 DEV tags) and republishes
 that post from the [blog repository](https://github.com/mgamio/blog) (`_posts/`):
 

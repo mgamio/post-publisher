@@ -19,6 +19,12 @@
       "type": "article",
       "at": "2026-11-05T10:55:04+00:00",
       "url": "https://dev.to/moisesgamio/clean-code-best-practices-10-rules-with-java-examples-22jc-temp-slug-533451"
+    },
+    {
+      "id": "rate-limit",
+      "type": "article",
+      "at": "2026-11-10T17:50:31+00:00",
+      "url": "https://dev.to/moisesgamio/rate-limiting-in-spring-boot-with-bucket4j-token-bucket-algorithm-per-client-54l2"
     }
   ]
 }

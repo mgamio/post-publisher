@@ -133,9 +133,7 @@
       "book-054",
       "book-095"
     ],
-    "article": [
-      "art-035"
-    ]
+    "article": []
   },
   "announced": [],
   "history": [
@@ -882,6 +880,12 @@
       "type": "article",
       "at": "2026-11-12T17:05:53+00:00",
       "url": "https://bsky.app/profile/codersite.bsky.social/post/3n24xdo6yvf24"
+    },
+    {
+      "id": "art-035",
+      "type": "article",
+      "at": "2026-11-12T22:44:07+00:00",
+      "url": "https://bsky.app/profile/codersite.bsky.social/post/3n25kageqhj2a"
     }
   ]
 }

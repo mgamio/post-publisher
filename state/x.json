@@ -1,7 +1,6 @@
 {
   "bags": {
     "quote": [
-      "quote-076",
       "quote-062",
       "quote-103",
       "quote-113",
@@ -215,6 +214,12 @@
       "type": "quote",
       "at": "2026-11-12T01:03:21+00:00",
       "url": "https://x.com/i/web/status/2120683883033248176"
+    },
+    {
+      "id": "quote-076",
+      "type": "quote",
+      "at": "2026-11-12T22:44:07+00:00",
+      "url": "https://x.com/i/web/status/2121011226922602977"
     }
   ]
 }

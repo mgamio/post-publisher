@@ -88,7 +88,6 @@
       "book-016"
     ],
     "article": [
-      "art-039",
       "art-055",
       "art-042",
       "art-029",
@@ -561,6 +560,12 @@
       "type": "book",
       "at": "2026-11-14T14:08:57+00:00",
       "url": "https://mastodon.social/@codersite_dev/117615187708591963"
+    },
+    {
+      "id": "art-039",
+      "type": "article",
+      "at": "2026-11-14T19:10:55+00:00",
+      "url": "https://mastodon.social/@codersite_dev/117616375041420132"
     }
   ]
 }

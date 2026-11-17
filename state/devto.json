@@ -25,6 +25,12 @@
       "type": "article",
       "at": "2026-11-10T17:50:31+00:00",
       "url": "https://dev.to/moisesgamio/rate-limiting-in-spring-boot-with-bucket4j-token-bucket-algorithm-per-client-54l2"
+    },
+    {
+      "id": "assemble-parts-in-minimum.time",
+      "type": "article",
+      "at": "2026-11-17T20:54:24+00:00",
+      "url": "https://dev.to/moisesgamio/assemble-parts-in-minimum-time-greedy-min-heap-solution-in-java-code-interview-problem-4f9e"
     }
   ]
 }

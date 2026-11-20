@@ -31,8 +31,14 @@ Posting times are `post_at` (and optional `days`) per platform in `config.toml`,
 time. GitHub starts scheduled runs late or skips them at busy times, so the workflow runs
 every 30 minutes and only posts to a platform when one of its times has passed since its
 last post. A skipped run is made up by the next one, and nothing is posted twice: a manual
-post also counts for the current time slot. Expect posts up to ~30-60 minutes after the
-configured time.
+post also counts for the current time slot.
+
+GitHub's own timer turned out to start only ~3 runs a day, so
+[cron-job.org](https://cron-job.org) starts the workflow at :05 and :35 of every hour via
+`POST https://api.github.com/repos/mgamio/post-publisher/actions/workflows/post.yml/dispatches`
+with the body `{"ref":"main","inputs":{"platform":"due","dry_run":"false"}}`, authorized by a
+fine-grained GitHub token limited to this repository with only **Actions: read and write**
+(renew it yearly). The GitHub timer stays as a backup; extra runs post nothing that is not due.
 
 ## Editing content
 

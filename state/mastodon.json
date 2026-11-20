@@ -1,7 +1,6 @@
 {
   "bags": {
     "book": [
-      "book-026",
       "book-083",
       "book-064",
       "book-082",
@@ -83,7 +82,6 @@
       "book-016"
     ],
     "article": [
-      "art-029",
       "art-037",
       "art-028",
       "art-045",
@@ -616,6 +614,18 @@
       "type": "article",
       "at": "2026-11-19T18:40:57+00:00",
       "url": "https://mastodon.social/@codersite_dev/117644568834850166"
+    },
+    {
+      "id": "book-026",
+      "type": "book",
+      "at": "2026-11-20T10:58:46+00:00",
+      "url": "https://mastodon.social/@codersite_dev/117648413371321515"
+    },
+    {
+      "id": "art-029",
+      "type": "article",
+      "at": "2026-11-20T11:01:02+00:00",
+      "url": "https://mastodon.social/@codersite_dev/117648422200626716"
     }
   ]
 }

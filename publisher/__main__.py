@@ -104,7 +104,8 @@ def main(argv=None, now=None):
             if not run_platform(platform, config, args, now):
                 failed.append(platform)
         except Exception as e:  # one platform failing must not stop the others
-            print(f"::error::{platform} failed: {e}")
+            # some exceptions have an empty message, so the type is always shown
+            print(f"::error::{platform} failed: {type(e).__name__}: {e}")
             failed.append(platform)
     return 1 if failed else 0
 

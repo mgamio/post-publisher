@@ -113,7 +113,6 @@
       "art-004"
     ],
     "quote": [
-      "quote-042",
       "quote-024",
       "quote-110",
       "quote-030",
@@ -636,6 +635,12 @@
       "type": "book",
       "at": "2026-11-21T09:00:59+00:00",
       "url": "https://mastodon.social/@codersite_dev/117653612803266823"
+    },
+    {
+      "id": "quote-042",
+      "type": "quote",
+      "at": "2026-11-21T18:00:55+00:00",
+      "url": "https://mastodon.social/@codersite_dev/117655735907175251"
     }
   ]
 }

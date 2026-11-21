@@ -44,9 +44,7 @@
       "quote-090",
       "quote-073"
     ],
-    "article": [
-      "art-054"
-    ],
+    "article": [],
     "book": [
       "book-056",
       "book-031",
@@ -927,6 +925,12 @@
       "type": "medium",
       "at": "2026-11-21T04:17:37+00:00",
       "url": "https://www.facebook.com/340966766397769_1620443653220854"
+    },
+    {
+      "id": "art-054",
+      "type": "article",
+      "at": "2026-11-21T08:30:49+00:00",
+      "url": "https://www.facebook.com/340966766397769_1620614866537066"
     }
   ]
 }

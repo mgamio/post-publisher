@@ -98,7 +98,6 @@
       "book-095"
     ],
     "article": [
-      "art-017",
       "art-057",
       "art-005",
       "art-027",
@@ -1269,6 +1268,12 @@
       "type": "article",
       "at": "2026-11-26T09:30:59+00:00",
       "url": "https://bsky.app/profile/codersite.bsky.social/post/3n37eh3bb572p"
+    },
+    {
+      "id": "art-017",
+      "type": "article",
+      "at": "2026-11-26T13:30:56+00:00",
+      "url": "https://bsky.app/profile/codersite.bsky.social/post/3n37ru5k73o22"
     }
   ]
 }

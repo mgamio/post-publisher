@@ -1,7 +1,6 @@
 {
   "bags": {
     "article": [
-      "art-045",
       "art-021",
       "art-017",
       "art-001",
@@ -216,6 +215,12 @@
       "type": "article",
       "at": "2026-11-26T16:30:56+00:00",
       "url": "https://www.linkedin.com/feed/update/urn:li:share:7531756392928595968/"
+    },
+    {
+      "id": "art-045",
+      "type": "article",
+      "at": "2026-11-27T16:31:04+00:00",
+      "url": "https://www.linkedin.com/feed/update/urn:li:share:7532118815653060608/"
     }
   ]
 }
